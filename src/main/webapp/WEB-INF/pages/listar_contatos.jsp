@@ -5,11 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<c:url value="/webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>" rel="stylesheet" media="screen">
+<script src="<c:url value="/webjars/jquery/1.9.0/jquery.min.js"/>" ></script>
+<script src="<c:url value="/webjars/bootstrap/3.1.1/js/bootstrap.min.js"/>" ></script>
 <title>Contatos</title>
 </head>
 <body>
 	<h1>Listagem de Contatos</h1>
-	<table border="1">
+	<table class="table" border="1">
 		<c:forEach var="contato" items="${contatos}">
 			<tr>
 				<td>${contato.nome}</td>
