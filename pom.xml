@@ -11,6 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.validation.version>1.1.0.Final</java.validation.version>
 		<spring.version>4.0.1.RELEASE</spring.version>
+		<spring.security.version>3.2.1.RELEASE</spring.security.version>
 		<hibernate.version>4.3.1.Final</hibernate.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<javax.inject.version>1</javax.inject.version>
@@ -84,6 +85,26 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
+		
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
