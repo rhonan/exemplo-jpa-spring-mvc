@@ -1,3 +1,28 @@
+<!-- Script de criação da tabela de usuários
+
+CREATE SEQUENCE "users_idUser_seq";
+
+CREATE TABLE users
+(
+  "idUser" integer NOT NULL DEFAULT nextval('"users_idUser_seq"'::regclass),
+  login character varying NOT NULL,
+  password character varying(128) NOT NULL,
+  email character varying NOT NULL,
+  name character varying,
+  surname character varying,
+  "secondName" character varying,
+  role character varying NOT NULL DEFAULT "current_user"(),
+  "enabled" boolean NOT NULL DEFAULT 'true',
+  CONSTRAINT "idUserPK" PRIMARY KEY ("idUser" ),
+  CONSTRAINT "emailUnique" UNIQUE (email ),
+  CONSTRAINT "loginUnique" UNIQUE (login )
+)
+WITH (
+  OIDS=FALSE
+);
+
+ -->
+
 <beans:beans xmlns="http://www.springframework.org/schema/security"
     xmlns:beans="http://www.springframework.org/schema/beans" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -12,13 +37,23 @@
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/login" />
 	</http>
- 
+
 	<authentication-manager>
-	  <authentication-provider>
-	    <user-service>
-		<user name="npi" password="npi" authorities="ROLE_USER" />
-	    </user-service>
-	  </authentication-provider>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="
+                    SELECT login, password, enabled
+                    FROM users WHERE login = ?"
+
+				authorities-by-username-query="
+                    SELECT login,
+                    CASE
+                        WHEN role = 'admin'
+                            THEN 'ROLE_ADMIN'
+                            ELSE 'ROLE_USER'
+                    END
+                    FROM users WHERE login = ?" />
+		</authentication-provider>
 	</authentication-manager>
  
 </beans:beans>
